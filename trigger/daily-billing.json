@@ -19,7 +19,7 @@
 		"typeProperties": {
 			"frequency": "Hour",
 			"interval": 24,
-			"startTime": "2019-06-04T01:00:00Z",
+			"startTime": "2019-06-04T01:00:00.000Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
