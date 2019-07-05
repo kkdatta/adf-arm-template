@@ -1,5 +1,5 @@
 {
-	"name": "iap_summary_day_data",
+	"name": "mmp_summary_day_data",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "mmpblob",
