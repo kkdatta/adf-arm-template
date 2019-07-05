@@ -9,10 +9,10 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"inputPath": "@concat('--inputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapbilling', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
-				"outputPath": "@concat('--outputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-parquet/iapbilling', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"inputPath": "@concat('--inputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/billing', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
+				"outputPath": "@concat('--outputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/daily-parquet/billing', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
 				"processTime": "@concat('--processTime=',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
-				"appName": "--appName=iapBillingDaily"
+				"appName": "--appName=mmpBillingDaily"
 			}
 		},
 		"type": "TumblingWindowTrigger",
