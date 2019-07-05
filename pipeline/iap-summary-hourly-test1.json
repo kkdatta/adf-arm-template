@@ -1,0 +1,46 @@
+{
+	"name": "iap-summary-hourly-test1",
+	"properties": {
+		"activities": [
+			{
+				"name": "iap-summary-hourly-test1",
+				"type": "HDInsightSpark",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"rootPath": "iap-reporting-utils",
+					"entryFilePath": "iap-pipelines.jar",
+					"arguments": [
+						"--inputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-parquet/iapbilling/*/partitionColumn=2019-06-{10,11}/",
+						"--outputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/misc/custom/test7/",
+						"--query=Select eventTime, offerId, affiliateId, SUM(revenue) as revenue from misc where eventTime >= '2019-06-10' and eventTime <= '2019-06-12' group by offerId, affiliateId, eventTime",
+						"--tableName=misc",
+						"--appName=test1"
+					],
+					"getDebugInfo": "Always",
+					"className": "com.inmobi.iap.reporting.jobs.misc.CustomQuery",
+					"sparkJobLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "iapsparkhdicluster",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "spark-jobs/misc"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,281 @@
+{
+	"name": "iap-summary-daily",
+	"properties": {
+		"activities": [
+			{
+				"name": "iap-summary-daily",
+				"type": "HDInsightSpark",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"rootPath": "iap-reporting-utils",
+					"entryFilePath": "iap-pipelines.jar",
+					"arguments": [
+						"@pipeline().parameters.inputPath",
+						"@pipeline().parameters.outputPath",
+						"@pipeline().parameters.processTime",
+						"@pipeline().parameters.appName"
+					],
+					"className": "com.inmobi.iap.reporting.jobs.daily.SummaryDaily",
+					"sparkJobLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "iapsparkhdicluster",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "upload-to-day-table",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "iap-summary-daily",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSetting",
+							"recursive": true,
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "eventTime",
+									"type": "String"
+								},
+								"sink": {
+									"name": "event_time",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "offerId"
+								},
+								"sink": {
+									"name": "offer_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "affiliateId"
+								},
+								"sink": {
+									"name": "affiliate_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "affSub2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "aff_sub2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "totalInvalidClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "invalid_clicks",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalValidClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "valid_clicks",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "click_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "goalName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "conversion_goal",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "billingStatus",
+									"type": "String"
+								},
+								"sink": {
+									"name": "billing_status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "billingStatusMessage",
+									"type": "String"
+								},
+								"sink": {
+									"name": "billing_status_message",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "conversionIsBillable"
+								},
+								"sink": {
+									"name": "is_billable",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "totalConversionCount",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "conversion_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalRevenue",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "revenue",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "totalPayout",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "payout",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "totalProfit",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "profit",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "processHour",
+									"type": "String"
+								},
+								"sink": {
+									"name": "process_time",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "colo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "colo",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iap_summary_day_data",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iap_summary_day_fact",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"inputPath": {
+				"type": "string"
+			},
+			"outputPath": {
+				"type": "string"
+			},
+			"processTime": {
+				"type": "string"
+			},
+			"appName": {
+				"type": "string"
+			},
+			"outputLocation": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "spark-jobs/daily"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

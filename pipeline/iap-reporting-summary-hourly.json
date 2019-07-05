@@ -1,0 +1,185 @@
+{
+	"name": "iap-reporting-summary-hourly",
+	"properties": {
+		"activities": [
+			{
+				"name": "pig-summary-hourly",
+				"type": "HDInsightPig",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "iap-reporting-utils/hourly-stitch.pig",
+					"arguments": [
+						"-x",
+						"mr"
+					],
+					"defines": {
+						"inputClick": {
+							"value": "@pipeline().parameters.inputClick",
+							"type": "Expression"
+						},
+						"inputBilling": {
+							"value": "@pipeline().parameters.inputBilling",
+							"type": "Expression"
+						},
+						"processTime": {
+							"value": "@pipeline().parameters.processTime",
+							"type": "Expression"
+						},
+						"outputData": {
+							"value": "@pipeline().parameters.outputData",
+							"type": "Expression"
+						}
+					},
+					"scriptLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "hdicluster2",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "upload-to-sqldwh",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "pig-summary-hourly",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 300,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.outputLocation}/"
+					},
+					{
+						"name": "Destination",
+						"value": "[iap].[hour_iapaggregated_fact_tmp]"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": false
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false,
+						"writeBatchSize": 10000,
+						"preCopyScript": {
+							"value": "@{concat('delete from iap.hour_iapaggregated_fact_tmp where process_time in (''', pipeline().parameters.processTime, ''')')}",
+							"type": "Expression"
+						}
+					},
+					"enableStaging": false,
+					"parallelCopies": 32,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "iapreporting",
+							"type": "LinkedServiceReference"
+						},
+						"path": "sqldwh-logs"
+					},
+					"dataIntegrationUnits": 32,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"event_time": "event_time",
+							"offer_id": "offer_id",
+							"affiliate_id": "affiliate_id",
+							"aff_sub2": "aff_sub2",
+							"click_is_fraud": "click_is_fraud",
+							"click_is_valid": "click_is_valid",
+							"click_invalid_reason": "click_invalid_reason",
+							"is_s2s": "is_s2s",
+							"click_lifespan": "click_lifespan",
+							"country": "country",
+							"carrier": "carrier",
+							"device_id_type": "device_id_type",
+							"device_model": "device_model",
+							"device_manufacturer": "device_manufacturer",
+							"os": "os",
+							"os_version": "os_version",
+							"click_quality": "click_quality",
+							"goal_name": "conversion_goal",
+							"match_type": "matchtype",
+							"conversion_is_rejected": "conversion_is_rejected",
+							"conversion_rejected_reason": "conversion_rejected_reason",
+							"app_version": "app_version",
+							"tracking_partner": "tracking_partner",
+							"conversion_is_billable": "conversion_is_billable",
+							"conversion_status": "conversion_status",
+							"conversion_status_message": "conversion_status_message",
+							"cost_per_action": "costPerAction",
+							"payout_per_action": "payoutPerAction",
+							"IMRO": "imro_number",
+							"net_value": "imro_value",
+							"billing_status": "billing_status",
+							"billing_status_message": "billing_status_message",
+							"total_clicks": "click_count",
+							"total_conversion_count": "conversion_count",
+							"total_revenue": "revenue",
+							"total_payout": "payout",
+							"total_profit": "profit",
+							"process_time": "process_time"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapreportingsummaryhourly",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iapreportinghourlytable",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"inputClick": {
+				"type": "String"
+			},
+			"inputBilling": {
+				"type": "String"
+			},
+			"processTime": {
+				"type": "String"
+			},
+			"outputData": {
+				"type": "String"
+			},
+			"outputLocation": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "iapsummary"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

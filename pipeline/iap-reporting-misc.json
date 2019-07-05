@@ -1,0 +1,40 @@
+{
+	"name": "iap-reporting-misc",
+	"properties": {
+		"activities": [
+			{
+				"name": "misc-scripts",
+				"type": "HDInsightPig",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "iap-reporting-utils/misc-billing-script-1.pig",
+					"arguments": [
+						"-x",
+						"mr"
+					],
+					"scriptLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "hdicluster2",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "misc"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

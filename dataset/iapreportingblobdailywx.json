@@ -1,0 +1,105 @@
+{
+	"name": "iapreportingblobdailywx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "wxblob"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "event_time",
+				"type": "DateTime"
+			},
+			{
+				"name": "offer_id",
+				"type": "Int32"
+			},
+			{
+				"name": "affiliate_id",
+				"type": "Int32"
+			},
+			{
+				"name": "aff_sub2",
+				"type": "String"
+			},
+			{
+				"name": "invalid_clicks",
+				"type": "Int32"
+			},
+			{
+				"name": "valid_clicks",
+				"type": "Int32"
+			},
+			{
+				"name": "click_count",
+				"type": "Int32"
+			},
+			{
+				"name": "conversion_goal",
+				"type": "String"
+			},
+			{
+				"name": "billing_status",
+				"type": "String"
+			},
+			{
+				"name": "conversion_is_billable",
+				"type": "Boolean"
+			},
+			{
+				"name": "conversion_count",
+				"type": "Int32"
+			},
+			{
+				"name": "billing_revenue",
+				"type": "Double"
+			},
+			{
+				"name": "billing_payout",
+				"type": "Double"
+			},
+			{
+				"name": "profit",
+				"type": "Double"
+			},
+			{
+				"name": "process_time",
+				"type": "DateTime"
+			},
+			{
+				"name": "billing_status_message",
+				"type": "String"
+			},
+			{
+				"name": "colo",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": "\u0001",
+				"rowDelimiter": "\n",
+				"nullValue": "",
+				"encodingName": null,
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"compression": {
+				"type": "GZip"
+			},
+			"fileName": "",
+			"folderPath": {
+				"value": "@pipeline().parameters.outputLocation",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

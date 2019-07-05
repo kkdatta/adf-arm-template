@@ -1,0 +1,96 @@
+{
+	"name": "iap_summary_hourly_data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "sparkblob"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@pipeline().parameters.outputLocation",
+					"type": "Expression"
+				},
+				"container": "iap-reporting-data"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "eventTime",
+				"type": "UTF8"
+			},
+			{
+				"name": "offerId",
+				"type": "INT32"
+			},
+			{
+				"name": "affiliateId",
+				"type": "INT32"
+			},
+			{
+				"name": "affSub2",
+				"type": "UTF8"
+			},
+			{
+				"name": "totalInvalidClicks",
+				"type": "INT64"
+			},
+			{
+				"name": "totalClicks",
+				"type": "INT64"
+			},
+			{
+				"name": "totalValidClicks",
+				"type": "INT64"
+			},
+			{
+				"name": "goalName",
+				"type": "UTF8"
+			},
+			{
+				"name": "billingStatus",
+				"type": "UTF8"
+			},
+			{
+				"name": "conversionIsBillable",
+				"type": "INT32"
+			},
+			{
+				"name": "billingStatusMessage",
+				"type": "UTF8"
+			},
+			{
+				"name": "totalRevenue",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "totalPayout",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "totalProfit",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "processHour",
+				"type": "UTF8"
+			},
+			{
+				"name": "totalConversionCount",
+				"type": "INT64"
+			},
+			{
+				"name": "colo",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

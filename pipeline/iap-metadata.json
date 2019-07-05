@@ -1,0 +1,193 @@
+{
+	"name": "iap-metadata",
+	"properties": {
+		"activities": [
+			{
+				"name": "upload-advertiser-metadata",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false,
+						"writeBatchSize": 10000,
+						"preCopyScript": "delete from iap.iap_advertiser_data_dim; "
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "iapreporting",
+							"type": "LinkedServiceReference"
+						},
+						"path": "sqldwh-logs"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"advertiser_id": "advertiser_id",
+							"advertiser_name": "advertiser_name",
+							"advertiser_account_id": "advertiser_account_id",
+							"advertiser_account_manager": "advertiser_account_manager",
+							"advertiser_region": "advertiser_region"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapmetadatablobadvertiser",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iapmetadataadvertiser",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "upload-affiliate-metadata",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false,
+						"writeBatchSize": 10000,
+						"preCopyScript": "delete from iap.iap_affiliate_data_dim; "
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "iapreporting",
+							"type": "LinkedServiceReference"
+						},
+						"path": "sqldwh-logs"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"affiliate_id": "affliate_id",
+							"affiliate_name": "affiliate_name",
+							"affiliate_country": "affiliate_country",
+							"affiliate_account_manager": "affiliate_account_manager",
+							"affiliate_account_id": "affiliate_account_id",
+							"affiliate_address": "affiliate_address",
+							"affiliate_bank_acc_number": "affiliate_bank_acc_number",
+							"affiliate_bank_ifsc_number": "affiliate_bank_ifsc_number",
+							"affiliate_bank_name": "affiliate_bank_name",
+							"affiliate_bank_branch_name": "affiliate_bank_branch_name"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapmetadatablobaffiliate",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iapmetadataaffiliate",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "upload-offer-metadata",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"writeBatchSize": 10000,
+						"preCopyScript": "delete from iap.iap_offer_data_dim; ",
+						"polyBaseSettings": {
+							"rejectValue": 1000,
+							"rejectType": "value",
+							"useTypeDefault": false
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "iapreporting",
+							"type": "LinkedServiceReference"
+						},
+						"path": "sqldwh-logs"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"advertiser_id": "advertiser_id",
+							"offer_id": "offer_id",
+							"offer_name": "offer_name",
+							"country": "country",
+							"os": "os",
+							"preview_url": "preview_url",
+							"offer_tag": "offer_tag",
+							"daily_conversion_cap": "daily_conversion_cap",
+							"monthly_conversion_cap": "monthly_conversion_cap",
+							"daily_payout_cap": "daily_payout_cap",
+							"monthly_payout_cap": "monthly_payout_cap"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapmetadataofferblob",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iapmetadataoffer",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

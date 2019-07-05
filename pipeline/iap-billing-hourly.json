@@ -1,0 +1,58 @@
+{
+	"name": "iap-billing-hourly",
+	"properties": {
+		"activities": [
+			{
+				"name": "iap-billing-hourly",
+				"type": "HDInsightSpark",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"rootPath": "iap-reporting-utils",
+					"entryFilePath": "iap-pipelines.jar",
+					"arguments": [
+						"@pipeline().parameters.billingInputPath",
+						"@pipeline().parameters.billingOutputPath",
+						"@pipeline().parameters.processTime",
+						"@pipeline().parameters.appName"
+					],
+					"className": "com.inmobi.iap.reporting.jobs.hourly.BillingHourly",
+					"sparkJobLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "iapsparkhdicluster",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"billingInputPath": {
+				"type": "string"
+			},
+			"billingOutputPath": {
+				"type": "string"
+			},
+			"processTime": {
+				"type": "string"
+			},
+			"appName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "spark-jobs/hourly"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

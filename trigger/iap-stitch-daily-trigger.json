@@ -1,0 +1,31 @@
+{
+	"name": "iap-stitch-daily-trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "iap-reporting-summary-daily",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"inputSummary": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/iapstitch', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*'))",
+				"outputSummary": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-iapstitch', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"processDay": "@formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd 00:00:00')",
+				"outputLocation": "@concat('iap-reporting-data/daily-iapstitch/',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2019-02-04T02:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"count": 2,
+				"intervalInSeconds": 300
+			}
+		}
+	}
+}

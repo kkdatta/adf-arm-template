@@ -1,0 +1,64 @@
+{
+	"name": "iapmetadataoffer",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapsqldwh",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatadwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"structure": [
+			{
+				"name": "advertiser_id",
+				"type": "Int32"
+			},
+			{
+				"name": "offer_id",
+				"type": "Int32"
+			},
+			{
+				"name": "offer_name",
+				"type": "String"
+			},
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "os",
+				"type": "String"
+			},
+			{
+				"name": "preview_url",
+				"type": "String"
+			},
+			{
+				"name": "offer_tag",
+				"type": "String"
+			},
+			{
+				"name": "daily_conversion_cap",
+				"type": "Int32"
+			},
+			{
+				"name": "monthly_conversion_cap",
+				"type": "Int32"
+			},
+			{
+				"name": "daily_payout_cap",
+				"type": "Double"
+			},
+			{
+				"name": "monthly_payout_cap",
+				"type": "Double"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[iap].[iap_offer_data_dim]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

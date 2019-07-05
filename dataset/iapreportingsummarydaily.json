@@ -1,0 +1,188 @@
+{
+	"name": "iapreportingsummarydaily",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "blob"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "event_time",
+				"type": "DateTime"
+			},
+			{
+				"name": "offer_id",
+				"type": "Int32"
+			},
+			{
+				"name": "affiliate_id",
+				"type": "Int32"
+			},
+			{
+				"name": "aff_sub2",
+				"type": "String"
+			},
+			{
+				"name": "click_is_fraud",
+				"type": "Boolean"
+			},
+			{
+				"name": "click_is_valid",
+				"type": "Boolean"
+			},
+			{
+				"name": "click_invalid_reason",
+				"type": "String"
+			},
+			{
+				"name": "is_s2s",
+				"type": "Boolean"
+			},
+			{
+				"name": "click_lifespan",
+				"type": "Int32"
+			},
+			{
+				"name": "click_country",
+				"type": "String"
+			},
+			{
+				"name": "click_carrier",
+				"type": "String"
+			},
+			{
+				"name": "click_device_id_type",
+				"type": "String"
+			},
+			{
+				"name": "click_device_model",
+				"type": "String"
+			},
+			{
+				"name": "click_device_manufacturer",
+				"type": "String"
+			},
+			{
+				"name": "click_os",
+				"type": "String"
+			},
+			{
+				"name": "click_os_version",
+				"type": "String"
+			},
+			{
+				"name": "click_quality",
+				"type": "String"
+			},
+			{
+				"name": "goal_name",
+				"type": "String"
+			},
+			{
+				"name": "match_type",
+				"type": "String"
+			},
+			{
+				"name": "conversion_is_rejected",
+				"type": "String"
+			},
+			{
+				"name": "conversion_rejected_reason",
+				"type": "String"
+			},
+			{
+				"name": "app_version",
+				"type": "String"
+			},
+			{
+				"name": "tracking_partner",
+				"type": "String"
+			},
+			{
+				"name": "conversion_is_billable",
+				"type": "Boolean"
+			},
+			{
+				"name": "conversion_status",
+				"type": "String"
+			},
+			{
+				"name": "conversion_status_message",
+				"type": "String"
+			},
+			{
+				"name": "cost_per_action",
+				"type": "Double"
+			},
+			{
+				"name": "payout_per_action",
+				"type": "Double"
+			},
+			{
+				"name": "imro",
+				"type": "String"
+			},
+			{
+				"name": "net_value",
+				"type": "Double"
+			},
+			{
+				"name": "billing_status",
+				"type": "String"
+			},
+			{
+				"name": "billing_status_message",
+				"type": "String"
+			},
+			{
+				"name": "total_clicks",
+				"type": "Int32"
+			},
+			{
+				"name": "total_conversion_count",
+				"type": "Int32"
+			},
+			{
+				"name": "total_revenue",
+				"type": "Double"
+			},
+			{
+				"name": "total_payout",
+				"type": "Double"
+			},
+			{
+				"name": "total_profit",
+				"type": "Double"
+			},
+			{
+				"name": "process_hour",
+				"type": "DateTime"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": "\u0001",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"compression": {
+				"type": "GZip"
+			},
+			"fileName": "",
+			"folderPath": {
+				"value": "@pipeline().parameters.outputLocation",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

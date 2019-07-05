@@ -1,0 +1,30 @@
+{
+	"name": "hourly-click",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "iap-click-hourly",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"clickInputPath": "@concat('--clickInputPath=wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapclick/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"clickOutputPath": "@concat('--clickOutputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapclick', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
+				"processTime": "@concat('--processTime=',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd HH:00:00'))",
+				"appName": "@concat('--appName=iapClickHourly')"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 1,
+			"startTime": "2019-05-29T08:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"name": "daily-click",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "iap-click-daily",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"inputPath": "@concat('--inputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapclick', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
+				"outputPath": "@concat('--outputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-parquet/iapclick', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"processTime": "@concat('--processTime=',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"appName": "--appName=iapClickDaily"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2019-06-04T01:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			}
+		}
+	}
+}

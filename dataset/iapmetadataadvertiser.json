@@ -1,0 +1,40 @@
+{
+	"name": "iapmetadataadvertiser",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapsqldwh",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatadwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"structure": [
+			{
+				"name": "advertiser_id",
+				"type": "Int32"
+			},
+			{
+				"name": "advertiser_name",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_account_id",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_account_manager",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_region",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[iap].[iap_advertiser_data_dim]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

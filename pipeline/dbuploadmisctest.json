@@ -1,0 +1,226 @@
+{
+	"name": "dbuploadmisctest",
+	"properties": {
+		"activities": [
+			{
+				"name": "parquettodwh",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSetting",
+							"recursive": true,
+							"wildcardFolderPath": "misc/hourly-parquet/iapsummary/2019-06-11-04",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "eventTime",
+									"type": "String"
+								},
+								"sink": {
+									"name": "event_time",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "offerId"
+								},
+								"sink": {
+									"name": "offer_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "affiliateId"
+								},
+								"sink": {
+									"name": "affiliate_id",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "affSub2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "aff_sub2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "totalInValidClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "invalid_clicks",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalValidClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "valid_clicks",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalClicks",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "click_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "goalName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "conversion_goal",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "billingStatus",
+									"type": "String"
+								},
+								"sink": {
+									"name": "billing_status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "billingStatusMessage",
+									"type": "String"
+								},
+								"sink": {
+									"name": "billing_status_message",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "conversionIsBillable"
+								},
+								"sink": {
+									"name": "is_billable",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "totalConversionCount",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "conversion_count",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "totalRevenue",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "revenue",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "totalPayout",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "payout",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "totalProfit",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "profit",
+									"type": "Single"
+								}
+							},
+							{
+								"source": {
+									"name": "processHour",
+									"type": "String"
+								},
+								"sink": {
+									"name": "process_time",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "colo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "colo",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapparquettest",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iap_summary_hourly_fact",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "spark-jobs/misc"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,65 @@
+{
+	"name": "iap-reporting-click-daily",
+	"properties": {
+		"activities": [
+			{
+				"name": "pig-click-daily",
+				"type": "HDInsightPig",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "iap-reporting-utils/daily-click-raw.pig",
+					"arguments": [
+						"-x",
+						"mr"
+					],
+					"defines": {
+						"inputClickDaily": {
+							"value": "@pipeline().parameters.inputClickDaily",
+							"type": "Expression"
+						},
+						"outputClickDaily": {
+							"value": "@pipeline().parameters.outputClickDaily",
+							"type": "Expression"
+						},
+						"processDay": {
+							"value": "@pipeline().parameters.processDay",
+							"type": "Expression"
+						}
+					},
+					"scriptLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "hdicluster2",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"inputClickDaily": {
+				"type": "String"
+			},
+			"outputClickDaily": {
+				"type": "String"
+			},
+			"processDay": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "iapclick"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

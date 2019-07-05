@@ -1,0 +1,60 @@
+{
+	"name": "iapmetadataaffiliate",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapsqldwh",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatadwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"structure": [
+			{
+				"name": "affliate_id",
+				"type": "Int32"
+			},
+			{
+				"name": "affiliate_name",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_country",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_account_manager",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_account_id",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_address",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_acc_number",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_ifsc_number",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_name",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_branch_name",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[iap].[iap_affiliate_data_dim]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,75 @@
+{
+	"name": "iapmetadataofferblob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatablob"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "advertiser_id",
+				"type": "Int32"
+			},
+			{
+				"name": "offer_id",
+				"type": "Int32"
+			},
+			{
+				"name": "offer_name",
+				"type": "String"
+			},
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "os",
+				"type": "String"
+			},
+			{
+				"name": "preview_url",
+				"type": "String"
+			},
+			{
+				"name": "offer_tag",
+				"type": "String"
+			},
+			{
+				"name": "daily_conversion_cap",
+				"type": "Int32"
+			},
+			{
+				"name": "monthly_conversion_cap",
+				"type": "Int32"
+			},
+			{
+				"name": "daily_payout_cap",
+				"type": "Double"
+			},
+			{
+				"name": "monthly_payout_cap",
+				"type": "Double"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": "\u0001",
+				"rowDelimiter": "\n",
+				"nullValue": "",
+				"encodingName": null,
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "",
+			"folderPath": "iap-reporting-data/postgres-metadata/offer"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

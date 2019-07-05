@@ -1,0 +1,88 @@
+{
+	"name": "iapreportinghourlyfactwx",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapsqldwh",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "wxsqldwh"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"structure": [
+			{
+				"name": "event_time",
+				"type": "DateTime"
+			},
+			{
+				"name": "offer_id",
+				"type": "Int32"
+			},
+			{
+				"name": "affiliate_id",
+				"type": "Int32"
+			},
+			{
+				"name": "aff_sub2",
+				"type": "String"
+			},
+			{
+				"name": "invalid_clicks",
+				"type": "Int32"
+			},
+			{
+				"name": "valid_clicks",
+				"type": "Int32"
+			},
+			{
+				"name": "click_count",
+				"type": "Int32"
+			},
+			{
+				"name": "conversion_goal",
+				"type": "String"
+			},
+			{
+				"name": "billing_status",
+				"type": "String"
+			},
+			{
+				"name": "is_billable",
+				"type": "Boolean"
+			},
+			{
+				"name": "conversion_count",
+				"type": "Int32"
+			},
+			{
+				"name": "revenue",
+				"type": "Double"
+			},
+			{
+				"name": "payout",
+				"type": "Double"
+			},
+			{
+				"name": "profit",
+				"type": "Double"
+			},
+			{
+				"name": "process_time",
+				"type": "DateTime"
+			},
+			{
+				"name": "billing_status_message",
+				"type": "String"
+			},
+			{
+				"name": "colo",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[iap].[hour_iapaggregated_fact_wadogox]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

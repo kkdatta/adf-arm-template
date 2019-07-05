@@ -1,0 +1,98 @@
+{
+	"name": "iapreportingsparktest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapsqldwh",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "event_time",
+				"type": "smalldatetime",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "offer_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "affiliate_id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "aff_sub2",
+				"type": "nvarchar"
+			},
+			{
+				"name": "invalid_clicks",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "valid_clicks",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "click_count",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "conversion_goal",
+				"type": "nvarchar"
+			},
+			{
+				"name": "billing_status",
+				"type": "nvarchar"
+			},
+			{
+				"name": "billing_status_message",
+				"type": "nvarchar"
+			},
+			{
+				"name": "is_billable",
+				"type": "bit"
+			},
+			{
+				"name": "conversion_count",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "revenue",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "payout",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "profit",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "process_time",
+				"type": "smalldatetime",
+				"precision": 16,
+				"scale": 0
+			},
+			{
+				"name": "colo",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[iap].[hour_aggregated_fact]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

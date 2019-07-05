@@ -1,0 +1,70 @@
+{
+	"name": "iapmetadatablobaffiliate",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatablob"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "affiliate_id",
+				"type": "Int32"
+			},
+			{
+				"name": "affiliate_name",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_country",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_account_manager",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_account_id",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_address",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_acc_number",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_ifsc_number",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_name",
+				"type": "String"
+			},
+			{
+				"name": "affiliate_bank_branch_name",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": "\u0001",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "affiliate.csv",
+			"folderPath": "iap-reporting-data/postgres-metadata/affiliate"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

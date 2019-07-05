@@ -1,0 +1,30 @@
+{
+	"name": "iap-wx-daily-trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "iap-reporting-wadogox-daily",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"input": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/iapstitchwx', '/', formatDateTime(addhours(trigger().outputs.windowStartTime, 0), 'yyyy-MM-dd-*'))",
+				"output": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-iapstitchwx', '/', formatDateTime(addhours(trigger().outputs.windowStartTime, 0), 'yyyy-MM-dd'))",
+				"processTime": "@formatDateTime(addhours(trigger().outputs.windowStartTime, 0), 'yyyy-MM-dd 00:00:00')",
+				"outputLocation": "@concat('iap-reporting-data/daily-iapstitchwx/',formatDateTime(addhours(trigger().outputs.windowStartTime, 0), 'yyyy-MM-dd'))"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2019-02-13T01:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			}
+		}
+	}
+}

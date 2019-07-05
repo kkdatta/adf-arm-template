@@ -1,0 +1,31 @@
+{
+	"name": "daily-summary",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "iap-summary-daily",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"inputPath": "@concat('--inputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapsummary', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
+				"outputPath": "@concat('--outputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-parquet/iapsummary', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"processTime": "@concat('--processTime=',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd 00:00:00'))",
+				"appName": "@concat('--appName=iapSummaryDaily')",
+				"outputLocation": "@concat('daily-parquet/iapsummary/',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))"
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 24,
+			"startTime": "2019-06-06T01:00:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			}
+		}
+	}
+}

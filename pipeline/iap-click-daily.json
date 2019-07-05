@@ -1,0 +1,58 @@
+{
+	"name": "iap-click-daily",
+	"properties": {
+		"activities": [
+			{
+				"name": "iap-click-daily",
+				"type": "HDInsightSpark",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"rootPath": "iap-reporting-utils",
+					"entryFilePath": "iap-pipelines.jar",
+					"arguments": [
+						"@pipeline().parameters.inputPath",
+						"@pipeline().parameters.outputPath",
+						"@pipeline().parameters.processTime",
+						"@pipeline().parameters.appName"
+					],
+					"className": "com.inmobi.iap.reporting.jobs.daily.ClickDaily",
+					"sparkJobLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "iapsparkhdicluster",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"inputPath": {
+				"type": "string"
+			},
+			"outputPath": {
+				"type": "string"
+			},
+			"processTime": {
+				"type": "string"
+			},
+			"appName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "spark-jobs/daily"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

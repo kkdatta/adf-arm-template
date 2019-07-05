@@ -1,0 +1,52 @@
+{
+	"name": "iapmetadatablobadvertiser",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "iapreporting",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "metadatablob"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "advertiser_id",
+				"type": "Int32"
+			},
+			{
+				"name": "advertiser_name",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_account_id",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_region",
+				"type": "String"
+			},
+			{
+				"name": "advertiser_account_manager",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": "\u0001",
+				"rowDelimiter": "\n",
+				"quoteChar": "\"",
+				"nullValue": "\\N",
+				"encodingName": null,
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "advertiser.csv",
+			"folderPath": "iap-reporting-data/postgres-metadata/advertiser"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

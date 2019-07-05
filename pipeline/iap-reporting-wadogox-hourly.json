@@ -1,0 +1,158 @@
+{
+	"name": "iap-reporting-wadogox-hourly",
+	"properties": {
+		"activities": [
+			{
+				"name": "pig-hourly-wadogox",
+				"type": "HDInsightPig",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "iap-reporting-utils/hourly-wadogox.pig",
+					"arguments": [
+						"-x",
+						"mr"
+					],
+					"getDebugInfo": "Always",
+					"defines": {
+						"inputClick": {
+							"value": "@pipeline().parameters.inputClick",
+							"type": "Expression"
+						},
+						"inputBilling": {
+							"value": "@pipeline().parameters.inputBilling",
+							"type": "Expression"
+						},
+						"output": {
+							"value": "@pipeline().parameters.output",
+							"type": "Expression"
+						},
+						"processTime": {
+							"value": "@pipeline().parameters.processTime",
+							"type": "Expression"
+						},
+						"outputLocation": {
+							"value": "@pipeline().parameters.outputLocation",
+							"type": "Expression"
+						}
+					},
+					"scriptLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "hdicluster2",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "upload-to-wadogox",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "pig-hourly-wadogox",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": false,
+						"writeBatchSize": 10000,
+						"preCopyScript": {
+							"value": "@{concat('delete from iap.hour_iapaggregated_fact_wadogox where process_time in (''', pipeline().parameters.processTime, ''')')}",
+							"type": "Expression"
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"redirectIncompatibleRowSettings": {
+						"linkedServiceName": {
+							"referenceName": "iapreporting",
+							"type": "LinkedServiceReference"
+						},
+						"path": "sqldwh-logs"
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"event_time": "event_time",
+							"offer_id": "offer_id",
+							"affiliate_id": "affiliate_id",
+							"aff_sub2": "aff_sub2",
+							"invalid_clicks": "invalid_clicks",
+							"valid_clicks": "valid_clicks",
+							"click_count": "click_count",
+							"conversion_goal": "conversion_goal",
+							"billing_status": "billing_status",
+							"conversion_is_billable": "is_billable",
+							"conversion_count": "conversion_count",
+							"billing_revenue": "revenue",
+							"billing_payout": "payout",
+							"profit": "profit",
+							"process_time": "process_time",
+							"billing_status_message": "billing_status_message",
+							"colo": "colo"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "iapreportingblobhourlywx",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "iapreportinghourlyfactwx",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"inputClick": {
+				"type": "String"
+			},
+			"inputBilling": {
+				"type": "String"
+			},
+			"output": {
+				"type": "String"
+			},
+			"processTime": {
+				"type": "String"
+			},
+			"outputLocation": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "wxpipelines"
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

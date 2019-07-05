@@ -1,0 +1,62 @@
+{
+	"name": "iap-reporting-wadogox-monthly",
+	"properties": {
+		"activities": [
+			{
+				"name": "monthly-wadogox",
+				"type": "HDInsightPig",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"scriptPath": "iap-reporting-utils/monthly-wadogox.pig",
+					"arguments": [
+						"-x",
+						"mr"
+					],
+					"defines": {
+						"input": {
+							"value": "@pipeline().parameters.input",
+							"type": "Expression"
+						},
+						"output": {
+							"value": "@pipeline().parameters.output",
+							"type": "Expression"
+						},
+						"processMonth": {
+							"value": "@pipeline().parameters.processMonth",
+							"type": "Expression"
+						}
+					},
+					"scriptLinkedService": {
+						"referenceName": "iapreporting",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "hdicluster2",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"input": {
+				"type": "string"
+			},
+			"output": {
+				"type": "string"
+			},
+			"processMonth": {
+				"type": "string"
+			}
+		},
+		"annotations": []
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
