@@ -1,5 +1,5 @@
 {
-	"name": "iap-summary-daily",
+	"name": "mmp-summary-daily",
 	"properties": {
 		"activities": [
 			{
@@ -23,15 +23,7 @@
 						"@pipeline().parameters.processTime",
 						"@pipeline().parameters.appName"
 					],
-					"className": "com.inmobi.iap.reporting.jobs.daily.SummaryDaily",
-					"sparkJobLinkedService": {
-						"referenceName": "iapreporting",
-						"type": "LinkedServiceReference"
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "iapsparkhdicluster",
-					"type": "LinkedServiceReference"
+					"className": "com.inmobi.iap.reporting.jobs.daily.SummaryDaily"
 				}
 			},
 			{
