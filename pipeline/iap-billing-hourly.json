@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"rootPath": "iap-reporting-utils",
+					"rootPath": "mmp-reporting-utils",
 					"entryFilePath": "iap-pipelines.jar",
 					"arguments": [
 						"@pipeline().parameters.billingInputPath",
@@ -25,12 +25,12 @@
 					],
 					"className": "com.inmobi.iap.reporting.jobs.hourly.BillingHourly",
 					"sparkJobLinkedService": {
-						"referenceName": "iapreporting",
+						"referenceName": "mmpblob",
 						"type": "LinkedServiceReference"
 					}
 				},
 				"linkedServiceName": {
-					"referenceName": "iapsparkhdicluster",
+					"referenceName": "mmp_spark_hdi",
 					"type": "LinkedServiceReference"
 				}
 			}
