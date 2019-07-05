@@ -245,7 +245,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "iap_summary_hourly_data",
+						"referenceName": "mmp_summary_hourly_data",
 						"type": "DatasetReference"
 					}
 				],
