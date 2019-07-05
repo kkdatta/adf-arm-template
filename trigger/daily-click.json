@@ -9,17 +9,17 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"inputPath": "@concat('--inputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapclick', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
-				"outputPath": "@concat('--outputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-parquet/iapclick', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
+				"inputPath": "@concat('--inputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/click', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*/'))",
+				"outputPath": "@concat('--outputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/daily-parquet/click', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
 				"processTime": "@concat('--processTime=',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
-				"appName": "--appName=iapClickDaily"
+				"appName": "--appName=mmpClickDaily"
 			}
 		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
 			"interval": 24,
-			"startTime": "2019-06-04T01:00:00Z",
+			"startTime": "2019-06-04T01:00:00.000Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
