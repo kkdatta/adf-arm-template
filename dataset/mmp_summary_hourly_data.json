@@ -1,8 +1,8 @@
 {
-	"name": "iap_summary_hourly_data",
+	"name": "mmp_summary_hourly_data",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "iapreporting",
+			"referenceName": "mmpblob",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -17,7 +17,7 @@
 					"value": "@pipeline().parameters.outputLocation",
 					"type": "Expression"
 				},
-				"container": "iap-reporting-data"
+				"container": "mmp-reporting-data"
 			},
 			"compressionCodec": "snappy"
 		},
