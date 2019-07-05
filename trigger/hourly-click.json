@@ -5,7 +5,7 @@
 		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
-				"referenceName": "iap-click-hourly",
+				"referenceName": "mmp-click-hourly",
 				"type": "PipelineReference"
 			},
 			"parameters": {

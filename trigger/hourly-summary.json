@@ -5,7 +5,7 @@
 		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
-				"referenceName": "iap-summary-hourly",
+				"referenceName": "mmp-summary-hourly",
 				"type": "PipelineReference"
 			},
 			"parameters": {
