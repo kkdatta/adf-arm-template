@@ -9,19 +9,19 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"clickInputPath": "@concat('--clickInputPath=wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapclick/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"billingInputPath": "@concat('--billingInputPath=wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapbilling/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"summaryOutputPath": "@concat('--summaryOutputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapsummary', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
+				"clickInputPath": "@concat('--clickInputPath=wasbs://click@mmpclickblob.blob.core.windows.net/mmp-click-streams/click/*, '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"billingInputPath": "@concat('--billingInputPath=wasbs://billing@mmpconversionblobs.blob.core.windows.net/mmp-conversion-streams/billing/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"summaryOutputPath": "@concat('--summaryOutputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/mmpsummary', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
 				"processTime": "@concat('--processTime=',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd HH:00:00'))",
-				"appName": "@concat('--appName=iapSummaryHourly')",
-				"outputLocation": "@concat('hourly-parquet/iapsummary/',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))"
+				"appName": "@concat('--appName=mmpSummaryHourly')",
+				"outputLocation": "@concat('hourly-parquet/mmpsummary/',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))"
 			}
 		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
 			"interval": 1,
-			"startTime": "2019-05-29T09:00:00Z",
+			"startTime": "2019-05-29T09:00:00.000Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
