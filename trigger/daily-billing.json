@@ -2,7 +2,7 @@
 	"name": "daily-billing",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "iap-billing-daily",
