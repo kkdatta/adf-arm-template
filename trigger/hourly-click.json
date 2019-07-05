@@ -9,17 +9,17 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"clickInputPath": "@concat('--clickInputPath=wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapclick/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"clickOutputPath": "@concat('--clickOutputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapclick', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
+				"clickInputPath": "@concat('--clickInputPath=wasbs://click@mmpclickblob.blob.core.windows.net/mmp-click-streams/click/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"clickOutputPath": "@concat('--clickOutputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/click', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
 				"processTime": "@concat('--processTime=',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd HH:00:00'))",
-				"appName": "@concat('--appName=iapClickHourly')"
+				"appName": "@concat('--appName=mmpClickHourly')"
 			}
 		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
 			"interval": 1,
-			"startTime": "2019-05-29T08:00:00Z",
+			"startTime": "2019-05-29T08:00:00.000Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
