@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "iap-billing-daily",
+				"name": "mmp-billing-daily",
 				"type": "HDInsightSpark",
 				"dependsOn": [],
 				"policy": {
