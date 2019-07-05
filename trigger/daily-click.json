@@ -2,7 +2,7 @@
 	"name": "daily-click",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "iap-click-daily",
