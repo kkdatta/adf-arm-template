@@ -1,5 +1,5 @@
 {
-	"name": "iap-summary-hourly",
+	"name": "mmp-summary-hourly",
 	"properties": {
 		"activities": [
 			{
@@ -70,13 +70,6 @@
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": true,
-					"redirectIncompatibleRowSettings": {
-						"linkedServiceName": {
-							"referenceName": "iapreporting",
-							"type": "LinkedServiceReference"
-						},
-						"path": "sqldwh-logs"
-					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
