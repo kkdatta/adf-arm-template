@@ -9,17 +9,17 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"billingInputPath": "@concat('--billingInputPath=wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapbilling/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"billingOutputPath": "@concat('--billingOutputPath=wasbs://iap-reporting-data@iapblob.blob.core.windows.net/hourly-parquet/iapbilling', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
+				"billingInputPath": "@concat('--billingInputPath=wasbs://billing@mmpconversionblobs.blob.core.windows.net/billing/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"billingOutputPath": "@concat('--billingOutputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/billing', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
 				"processTime": "@concat('--processTime=',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd HH:00:00'))",
-				"appName": "@concat('--appName=iapBillingHourly')"
+				"appName": "@concat('--appName=mmpBillingHourly')"
 			}
 		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
 			"interval": 1,
-			"startTime": "2019-05-29T08:00:00Z",
+			"startTime": "2019-05-29T08:00:00.000Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 50,
 			"retryPolicy": {
