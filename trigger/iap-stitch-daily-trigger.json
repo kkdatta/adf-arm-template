@@ -3,18 +3,6 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipeline": {
-			"pipelineReference": {
-				"referenceName": "iap-reporting-summary-daily",
-				"type": "PipelineReference"
-			},
-			"parameters": {
-				"inputSummary": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/iapstitch', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-*/*'))",
-				"outputSummary": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/daily-iapstitch', '/', formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))",
-				"processDay": "@formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd 00:00:00')",
-				"outputLocation": "@concat('iap-reporting-data/daily-iapstitch/',formatDateTime(adddays(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd'))"
-			}
-		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
