@@ -1,0 +1,12 @@
+{
+	"name": "mmp_dwh_ams",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDW",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=iap-reporting.database.windows.net;initial catalog=iap-reporting;user id=iap-reporting",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIk1NUC1SRVBPUlRJTkctRUFTVFVTX2MyMTFiYmFiLTczNzYtNDY0OS1hNGVmLTM5YTg2NzhhYjRmMCINCn0="
+		}
+	}
+}
