@@ -3,16 +3,6 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipeline": {
-			"pipelineReference": {
-				"referenceName": "iap-reporting-billing-hourly",
-				"type": "PipelineReference"
-			},
-			"parameters": {
-				"inputBilling": "@concat('wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapbilling/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"outputBilling": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/iapbilling', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))"
-			}
-		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
