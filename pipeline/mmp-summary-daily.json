@@ -235,7 +235,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "iap_summary_day_data",
+						"referenceName": "mmp_summary_day_data",
 						"type": "DatasetReference"
 					}
 				],
