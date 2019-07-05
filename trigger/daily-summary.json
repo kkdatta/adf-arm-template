@@ -2,7 +2,7 @@
 	"name": "daily-summary",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "iap-summary-daily",
