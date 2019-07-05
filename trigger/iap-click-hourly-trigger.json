@@ -3,16 +3,6 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipeline": {
-			"pipelineReference": {
-				"referenceName": "iap-reporting-click-hourly",
-				"type": "PipelineReference"
-			},
-			"parameters": {
-				"inputClick": "@concat('wasbs://iap-streams@iapblob.blob.core.windows.net/iapstreams/iapclick/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
-				"outputClick": "@concat('wasbs://iap-reporting-data@iapblob.blob.core.windows.net/iapclick', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))"
-			}
-		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Hour",
