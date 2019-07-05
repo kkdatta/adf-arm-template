@@ -9,7 +9,7 @@
 				"type": "PipelineReference"
 			},
 			"parameters": {
-				"billingInputPath": "@concat('--billingInputPath=wasbs://billing@mmpconversionblobs.blob.core.windows.net/billing/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
+				"billingInputPath": "@concat('--billingInputPath=wasbs://billing@mmpconversionblobs.blob.core.windows.net/mmp-conversion-streams/billing/*', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy/MM/dd/HH/*/'))",
 				"billingOutputPath": "@concat('--billingOutputPath=wasbs://mmp-reporting-data@mmpblob.blob.core.windows.net/hourly-parquet/billing', '/', formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd-HH'))",
 				"processTime": "@concat('--processTime=',formatDateTime(addhours(triggerOutputs().windowStartTime, 0), 'yyyy-MM-dd HH:00:00'))",
 				"appName": "@concat('--appName=mmpBillingHourly')"
